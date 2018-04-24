@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 00:26:22 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/24 08:12:18 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/25 01:10:15 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct	s_argbuffer
 typedef struct	s_minishell
 {
 	t_list			*env;
+	char			**virtual_env;
 	t_ms_status		status;
 	t_argbuffer		*current_arg;
 	int				(*action)(struct s_minishell *);
@@ -64,9 +65,33 @@ int				check_builtins(t_argbuffer *arg, t_minishell *msh);
 
 char			**ft_create_wordtab(char *str);
 
+/*
+**				[ ENV BUILTIN ]
+*/
+
+#define ENV_ELEM(x)		((t_env_elem*)x->content)
+
+typedef struct	s_env_elem
+{
+	char		content[4096];
+	size_t		nlen;
+	size_t		total_len;
+}				t_env_elem;
+
 int				builtin_env(t_minishell *msh);
+
 int				ft_setenv(t_minishell *msh);
 int				ft_unsetenv(t_minishell *msh);
+
+t_env_elem		*new_env_elem(char *elem);
+void			env_elem_update(t_env_elem *ret, char *elem);
+int				replace_elem(t_list *lst, char *value);
+t_list			*search_elem(t_list *env, char *key);
+
+/*
+**			[ VARIOUS BUILTINS ]
+*/
+
 int				ft_echo(t_minishell *msh);
 int				sh_exit(t_minishell *msh);
 

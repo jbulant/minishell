@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:11:45 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/24 08:28:58 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/25 00:17:33 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,16 +88,6 @@ void					ft_putchar_fd(char c, int fd);
 void					ft_putstr_fd(char *str, int fd);
 void					ft_putendl_fd(char *str, int fd);
 void					ft_putnbr_fd(int nb, int fd);
-t_list					*ft_lstnew(const void *content, size_t content_size);
-void					ft_lstdelone(t_list **alst, void (*del)(void **));
-void					ft_lstdel(t_list **alst, void (*del)(void **));
-void					ft_lstadd(t_list **alst, t_list *new);
-void					ft_lstiter(t_list *lst, void (*f)(t_list *elem));
-t_list					*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-void					ft_lstappend(t_list **alst, t_list *new);
-void					ft_lstjoin(t_list **alst, t_list *new);
-void					ft_lstsort(t_list **head, int (*cmp)());
-t_list					*ft_lstfromarray(char **ar);
 char					**ft_arstrnew(size_t size);
 size_t					ft_count_words(const char *str, char seperator);
 size_t					ft_strclen(const char *str, char c);
@@ -120,5 +110,23 @@ t_byte					ft_swap_byte(const t_byte byte);
 t_byte					ft_hexstr_to_byte(char *str);
 t_bool					ft_ishexa(char c);
 t_bool					ft_str_iscolorhex(char *str);
+
+/*
+**	FT_LST		FUNCTIONS
+*/
+
+t_list					*ft_lstnew(const void *content, size_t content_size);
+void					ft_lstdelone(t_list **alst, void (*del)(void **));
+void					ft_lstdel(t_list **alst, void (*del)(void **));
+void					ft_lstadd(t_list **alst, t_list *new);
+void					ft_lstiter(t_list *lst, void (*f)(t_list *elem));
+t_list					*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+void					ft_lstappend(t_list **alst, t_list *new);
+void					ft_lstjoin(t_list **alst, t_list *new);
+void					ft_lstsort(t_list **head, int (*cmp)());
+void					ft_lstprint(t_list *lst);
+void					ft_lstrprint(t_list *lst);
+void					ft_lstprint_content(t_list *lst);
+t_list					*ft_lstfromarray(char **ar);
 
 #endif

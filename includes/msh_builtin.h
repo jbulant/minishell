@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 02:35:33 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/24 08:12:13 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/25 00:00:18 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,5 @@ typedef struct	s_builtin
 t_builtin		*create_builtins(void);
 
 t_bool			isvalidkey(char *key);
-int				replace_elem(t_list *lst, char *value);
-t_list			*search_elem(t_list *env, char *key);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 16:49:28 by jbulant           #+#    #+#              #
-#    Updated: 2018/04/24 01:49:33 by jbulant          ###   ########.fr        #
+#    Updated: 2018/04/25 00:18:21 by jbulant          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,6 +83,9 @@ SRCS_NAME = \
 			ft_lstjoin.c \
 			ft_lstappend.c \
 			ft_lstsort.c \
+			ft_lstprint.c \
+			ft_lstrprint.c \
+			ft_lstprint_content.c \
 			ft_arstrnew.c \
 			ft_count_words.c \
 			ft_strclen.c \

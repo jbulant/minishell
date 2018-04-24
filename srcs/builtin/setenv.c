@@ -6,12 +6,28 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 05:25:35 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/24 07:53:02 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/25 01:00:03 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "msh_builtin.h"
+
+// int				insert_env_elem(t_list *env, t_env_elem *elem)
+// {
+// 	t_list		*dummy;
+//
+// 	dummy = env;
+// 	while (dummy)
+// 	{
+// 		if (!ft_memcmp(dummy->content, (void*)elem->elem, elem->nlen))
+// 		{
+//
+// 			break ;
+// 		}
+// 		dummy = dummy->next;
+// 	}
+// 	return (0);
+// }
 
 int				ft_setenv(t_minishell *msh)
 {

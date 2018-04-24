@@ -1,41 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   ft_lstprint_content.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/23 02:29:19 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/25 00:14:45 by jbulant          ###   ########.fr       */
+/*   Created: 2018/04/25 00:19:39 by jbulant           #+#    #+#             */
+/*   Updated: 2018/04/25 00:23:30 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <unistd.h>
+#include "libft.h"
 
-void			ft_lstprint(t_list *lst)
+void			ft_lstprint_content(t_list *lst)
 {
 	write(1, (char*)lst->content, lst->content_size);
-}
-
-void			ft_lstprintendl(t_list *lst)
-{
-	if (!lst->content)
-		return ;
-	ft_lstprint(lst);
-	ft_putchar('\n');
-}
-
-int				print_env(t_list *env)
-{
-	if (!env)
-		return (0);
-	if (env->next)
-		print_env(env->next);
-	ft_lstprintendl(env);
-	return (0);
-}
-
-int				builtin_env(t_minishell *msh)
-{
-	return (print_env(msh->env));
 }
