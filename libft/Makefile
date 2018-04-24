@@ -1,18 +1,19 @@
-#******************************************************************************#
+# **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jbulant <marvin@42.fr>                     +#+  +:+       +#+         #
+#    By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 16:49:28 by jbulant           #+#    #+#              #
-#    Updated: 2018/03/20 22:47:23 by jerome           ###   ########.fr        #
+#    Updated: 2018/04/24 01:49:33 by jbulant          ###   ########.fr        #
 #                                                                              #
-#******************************************************************************#
+# **************************************************************************** #
 
 NAME = libft.a
 
-DEBUG = 1
+LINUX = 0
+DEBUG = 0
 
 HEADERS_NAME = libft.h
 
@@ -73,6 +74,7 @@ SRCS_NAME = \
 			ft_putnbr.c \
 			ft_putnbr_fd.c \
 			ft_lstnew.c \
+			ft_lstfromarray.c \
 			ft_lstdelone.c \
 			ft_lstdel.c \
 			ft_lstadd.c \
@@ -80,6 +82,7 @@ SRCS_NAME = \
 			ft_lstmap.c \
 			ft_lstjoin.c \
 			ft_lstappend.c \
+			ft_lstsort.c \
 			ft_arstrnew.c \
 			ft_count_words.c \
 			ft_strclen.c \
@@ -113,7 +116,8 @@ HEADERS = $(addprefix $(HEADERS_PATH), $(HEADERS_NAME))
 CC = gcc
 INCLUDES = -Iincludes
 CFLAGS = -Wall -Wextra -Werror
-DEBUGFLAGS = -fsanitize=address -lasan -g3
+DEBUGFLAGS = -fsanitize=address -g3
+#DEBUGFLAGS = -fsanitize=address -lasan -g3
 
 .PHONY: all clean fclean re
 
@@ -122,17 +126,17 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
-	@echo LIBRARY: `echo $(NAME) | rev | cut -d '.' -f2 | rev` HAS BEEN COMPILED.
+	@echo LIBRARY [ '\033[0;32m'`echo $(NAME) | rev | cut -d '.' -f2 | rev| tr a-z A-Z`'\033[0m' ] HAS BEEN COMPILED.
 
 $(OBJDIR)%.o: $(SRCSDIR)%.c ${HEADERS}
 	@mkdir -p objs
 	@if [ $(DEBUG) -eq 1 ];\
 	then\
 		$(CC) $(CFLAGS) $(DEBUGFLAGS) $(INCLUDES) -c -o $@ $<;\
-		echo [`echo $(NAME) | rev | cut -d '.' -f2 | rev`][DEBUG]converting: `echo $< | rev | cut -d'/' -f1 | rev`;\
+		echo [ '\033[0;32m'`echo $(NAME) | rev | cut -d '.' -f2 | rev| tr a-z A-Z`'\033[0m' - '\033[1;33m'DEBUG'\033[0m' ] converting '\033[1;32m'`echo $< | rev | cut -d'/' -f1 | rev | sed 's/\.c$///g'`'\033[0m';\
 	else\
 		$(CC) $(CFLAGS) $(INCLUDES) -c -o $@ $<;\
-		echo [`echo $(NAME) | rev | cut -d '.' -f2 | rev`]converting: `echo $< | rev | cut -d'/' -f1 | rev`;\
+		echo [ '\033[0;32m'`echo $(NAME) | rev | cut -d '.' -f2 | rev| tr a-z A-Z`'\033[0m' ] converting '\033[1;32m'`echo $< | rev | cut -d'/' -f1 | rev | sed 's/\.c$///g'`'\033[0m';\
 	fi
 
 clean:

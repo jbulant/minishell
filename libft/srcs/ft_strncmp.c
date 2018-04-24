@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbulant <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 08:04:57 by jbulant           #+#    #+#             */
-/*   Updated: 2018/03/20 20:14:57 by jerome           ###   ########.fr       */
+/*   Updated: 2018/04/15 19:15:08 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,10 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-/*
-**	ft_strncmp_case:
-**	do the same work as ft_strncmp, but takes a boolean option parameter
-**	if 'sensitive' is set to TRUE; will return ft_strncmp
-**	otherwise, every alpha characters will be set to to lowercase for check
-*/
-
-int		ft_strncmp_case(const char *s1, const char *s2
-						, size_t n, t_bool sensitive)
+int		ft_strncasecmp(const char *s1, const char *s2, size_t n)
 {
 	size_t			i;
 
-	if (sensitive)
-		return (ft_strncmp(s1, s2, n));
 	if (!n)
 		return (0);
 	i = 0;

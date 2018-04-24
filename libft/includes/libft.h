@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbulant <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:11:45 by jbulant           #+#    #+#             */
-/*   Updated: 2018/03/20 20:03:04 by jerome           ###   ########.fr       */
+/*   Updated: 2018/04/24 08:28:58 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ typedef enum			e_bool
 }						t_bool;
 typedef struct			s_list
 {
+	struct s_list	*next;
 	void			*content;
 	size_t			content_size;
-	struct s_list	*next;
 }						t_list;
 void					*ft_memset(void *b, int c, size_t len);
 void					ft_bzero(void *s, size_t n);
@@ -50,10 +50,9 @@ char					*ft_strnstr(const char *str, const char *to_find,\
 									size_t n);
 int						ft_strcmp(const char *s1, const char *s2);
 int						ft_strncmp(const char *s1, const char *s2, size_t n);
-int						ft_strcmp_case(const char *s1, const char *s2
-									, t_bool sensitive);
-int						ft_strncmp_case(const char *s1, const char *s2
-									, size_t n, t_bool sensitive);
+int						ft_strcasecmp(const char *s1, const char *s2);
+int						ft_strncasecmp(const char *s1, const char *s2,\
+									size_t n);
 int						ft_atoi(const char *str);
 t_bool					ft_isalpha(int c);
 t_bool					ft_isdigit(int c);
@@ -90,14 +89,15 @@ void					ft_putstr_fd(char *str, int fd);
 void					ft_putendl_fd(char *str, int fd);
 void					ft_putnbr_fd(int nb, int fd);
 t_list					*ft_lstnew(const void *content, size_t content_size);
-void					ft_lstdelone(t_list **alst,\
-									void (*del)(void *, size_t));
+void					ft_lstdelone(t_list **alst, void (*del)(void **));
 void					ft_lstdel(t_list **alst, void (*del)(void **));
 void					ft_lstadd(t_list **alst, t_list *new);
 void					ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list					*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 void					ft_lstappend(t_list **alst, t_list *new);
 void					ft_lstjoin(t_list **alst, t_list *new);
+void					ft_lstsort(t_list **head, int (*cmp)());
+t_list					*ft_lstfromarray(char **ar);
 char					**ft_arstrnew(size_t size);
 size_t					ft_count_words(const char *str, char seperator);
 size_t					ft_strclen(const char *str, char c);

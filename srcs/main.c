@@ -6,11 +6,17 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 00:37:28 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/23 02:42:58 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/24 06:51:36 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void msh_clean(t_minishell *msh)
+{
+	ft_lstdel(&msh->env, ft_memdel);
+	del_argbuffer(&msh->current_arg);
+}
 
 int main(int ac, char **av, char **env)
 {
@@ -21,5 +27,6 @@ int main(int ac, char **av, char **env)
 	msh_init(env, &msh);
 	while(msh.status != TERMINATE)
 		msh.action(&msh);
+	msh_clean(&msh);
 	return 0;
 }
