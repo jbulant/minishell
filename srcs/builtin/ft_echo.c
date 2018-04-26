@@ -6,12 +6,11 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 07:03:00 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/24 07:08:05 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/26 16:38:20 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "msh_builtin.h"
 
 int				ft_echo(t_minishell *msh)
 {

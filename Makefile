@@ -26,6 +26,7 @@ SRCS_NAME = main.c \
 			new_argbuffer.c \
 			getusr.c \
 			parse_input.c \
+			ft_exec_cmd.c \
 			check_builtins.c \
 			ft_perror.c \
 			get_next_line.c \
@@ -34,6 +35,7 @@ SRCS_NAME = main.c \
 			ft_create_wordtab.c \
 			builtin/create_builtins.c \
 			builtin/env_tools.c \
+			builtin/env_toarray.c \
 			builtin/env.c \
 			builtin/setenv.c \
 			builtin/unsetenv.c \
@@ -61,6 +63,7 @@ HEADERS_NAME =	minishell.h \
 				get_next_line.h \
 				ft_error.h \
 				msh_builtin.h \
+				msh_token.h \
 				ft_pmatch.h
 
 HEADERS = $(addprefix $(HEADERS_PATH), $(HEADERS_NAME))

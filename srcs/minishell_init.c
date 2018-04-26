@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 00:13:40 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/25 01:03:00 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/26 16:24:55 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,26 @@ t_list		*create_env_lst(char **env)
 	return (elst);
 }
 
+void		update_path(t_minishell *msh)
+{
+	char		*path;
+
+	ft_arstrdel(msh->path);
+	path = get_elem_value(get_env_elem(msh->env, "PATH", 4));
+	msh->path = ft_strsplit(path, ':');
+	for (int i = 0; msh->path[i]; i++)
+		ft_putendl(msh->path[i]);
+
+}
+
 int			msh_init(char **env, t_minishell *msh)
 {
 	ft_bzero(msh, sizeof(msh));
+	msh->path = NULL;
 	msh->env = create_env_lst(env);
 	msh->action = get_usr_input;
 	msh->builtins = create_builtins();
+	update_path(msh);
+	// usr_input_init(&msh->input);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 01:33:32 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/24 06:35:19 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/26 00:57:09 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 # define MAX_ERROR_STATE	2
 
 # define ERROR_HEAD			"minishell: "
-
-# define E1					"parameter size too long"
-# define E2					"file doesn't exist"
-# define E3					"command not found: "
 # define ERROR_MSGS			E1, E2
+
+# define E3					"command not found: "
+# define E2					"file doesn't exist"
+# define E1					"argument list too long"
 
 typedef enum	e_error_state
 {

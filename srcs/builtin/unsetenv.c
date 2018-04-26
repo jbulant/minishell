@@ -6,52 +6,49 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 05:25:35 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/24 08:35:33 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/25 04:02:10 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "msh_builtin.h"
 
-static void find_and_delete(t_list **head, char *str)
+static int	find_and_delete(t_list **env, t_env_elem *elem)
 {
-	size_t		klen;
-	int			found;
-	t_list		*lst[2];
+	t_list	*lst;
+	t_list	*prev;
 
-	klen = ft_strchr(str, '=') - str;
-	found = -1;
- 	lst[1] = *head;
-	lst[0] = NULL;
-	while (lst[1])
+	prev = NULL;
+	lst = *env;
+	while (lst)
 	{
-		if (!(found = ft_strncmp((char*)(lst[1])->content, str, klen)))
-			break ;
-		lst[0] = lst[1];
-		lst[1] = lst[1]->next;
+		if (env_elem_cmp(elem, ENV_ELEM(lst)))
+		{
+			if (prev)
+				prev->next = lst->next;
+			else
+				*env = lst->next;
+			ft_lstdelone(&lst, ft_memdel);
+			return (1);
+		}
+		prev = lst;
+		lst = lst->next;
 	}
-	if (found)
-		return ;
-	if (lst[0])
-		lst[0]->next = lst[1]->next;
-	else
-		*head = lst[1]->next;
-	ft_lstdelone(&lst[1], ft_memdel);
+	return (0);
 }
 
-int				ft_unsetenv(t_minishell *msh)
+int			ft_unsetenv(t_minishell *msh)
 {
-	t_argbuffer *arg;
-	int			i;
+	t_env_elem		elem;
+	char			*key;
+	int				i;
 
-	if (!(arg = msh->current_arg) || !arg->keys[0])
-		return (0);
-	i = 0;
-	while (arg->keys[++i])
+	i = -1;
+	while ((key = msh->current_arg->keys[++i]))
 	{
-		if (!isvalidkey(arg->keys[i]))
-			continue ;
-		find_and_delete(&msh->env, arg->keys[i]);
+		env_elem_update(&elem, key);
+		if (find_and_delete(&msh->env, &elem)
+		&& elem.nlen == 4 && !ft_strncmp(elem.content, "PATH", 4))
+			update_path(msh);
 	}
 	return (0);
 }

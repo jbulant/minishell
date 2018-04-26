@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:11:45 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/25 00:17:33 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/26 01:09:01 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,13 @@
 # include <string.h>
 
 typedef unsigned char	t_byte;
+
 typedef enum			e_bool
 {
 	FALSE = 0,
 	TRUE = 1
 }						t_bool;
-typedef struct			s_list
-{
-	struct s_list	*next;
-	void			*content;
-	size_t			content_size;
-}						t_list;
+
 void					*ft_memset(void *b, int c, size_t len);
 void					ft_bzero(void *s, size_t n);
 void					*ft_memcpy(void *dest, const void *src, size_t n);
@@ -66,6 +62,7 @@ void					ft_memdel(void **ap);
 char					*ft_strnew(size_t size);
 char					*ft_strrealloc(char **dst, size_t new_size);
 void					ft_strdel(char **as);
+void					ft_arstrdel(char **ar);
 void					ft_strclr(char *str);
 void					ft_striter(char *str, void (*f)(char *));
 void					ft_striteri(char *str, void (*f)(unsigned int, char *));
@@ -114,6 +111,13 @@ t_bool					ft_str_iscolorhex(char *str);
 /*
 **	FT_LST		FUNCTIONS
 */
+
+typedef struct			s_list
+{
+	struct s_list	*next;
+	void			*content;
+	size_t			content_size;
+}						t_list;
 
 t_list					*ft_lstnew(const void *content, size_t content_size);
 void					ft_lstdelone(t_list **alst, void (*del)(void **));

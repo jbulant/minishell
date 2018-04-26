@@ -6,7 +6,7 @@
 #    By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 16:49:28 by jbulant           #+#    #+#              #
-#    Updated: 2018/04/25 00:18:21 by jbulant          ###   ########.fr        #
+#    Updated: 2018/04/25 03:42:57 by jbulant          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ SRCS_NAME = \
 			ft_strnew.c \
 			ft_strrealloc.c \
 			ft_strdel.c \
+			ft_arstrdel.c \
 			ft_strclr.c \
 			ft_striter.c \
 			ft_striteri.c \

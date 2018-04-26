@@ -1,20 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   char_match_pattern.c                               :+:      :+:    :+:   */
+/*   env_toarray.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/24 03:56:23 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/26 16:46:36 by jbulant          ###   ########.fr       */
+/*   Created: 2018/04/26 16:38:08 by jbulant           #+#    #+#             */
+/*   Updated: 2018/04/26 16:43:49 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pmatch.h"
+#include "minishell.h"
 
-t_bool			char_match_pattern(char c, t_chrmsk *cp)
+static size_t	get_lstheight(t_list *head)
 {
-	if (c < 0 || !(cp->pattern[c / 32] & (1 << (c % 32))))
-		return (FALSE);
-	return (TRUE);
+	size_t	cnt;
+
+	cnt = 0;
+	while (head)
+	{
+		cnt++;
+		head = head->next;
+	}
+	return (cnt);
+}
+
+char			**env_toarray(t_list *env)
+{
+	char	**ar;
+	size_t	height;
+
+	if (!(height = get_lstheight(env))
+	|| !(ar = ft_arstrnew(height)))
+		return (NULL);
+	while (env)
+	{
+		ar[--height] = ENV_ELEM(env)->content;
+		env = env->next;
+	}
+	return (ar);
 }

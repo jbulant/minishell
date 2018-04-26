@@ -6,56 +6,44 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 07:50:20 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/25 01:09:44 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/25 04:05:09 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "msh_builtin.h"
 
-t_bool	isvalidkey(char *key)
+char			*get_elem_value(t_env_elem *elem)
 {
-	t_char_pattern	cp;
-	char			*eq;
-	size_t			i;
-	size_t			len;
+	static char		value[4096];
 
-	if (!(eq = ft_strchr(key, '='))
-		|| eq == key
-		|| ft_strchr(++eq, '=')
-		|| !(len = (eq - 1) - key))
-		return (FALSE);
-	cp = create_char_pattern("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_");
-	i = 0;
-	while (i < len)
-		if (!char_match_pattern(key[i++], &cp))
-			return (FALSE);
-	return (TRUE);
+	if (!elem)
+		return (NULL);
+	ft_strcpy(value, elem->content + (elem->nlen ? elem->nlen + 1 : 0));
+	return (value);
 }
 
-int		replace_elem(t_list *lst, char *value)
+char			*get_elem_key(t_env_elem *elem)
 {
-	free(lst->content);
-	if (!(lst->content = ft_strdup(value)))
-		return (-1);
-	lst->content_size = ft_strlen(value);
-	return (0);
+	static char		key[4096];
+
+	if (!elem)
+		return (NULL);
+	ft_strncpy(key, elem->content, elem->nlen ? elem->nlen : elem->total_len);
+	return (key);
 }
 
-t_list	*search_elem(t_list *env, char *key)
+t_env_elem		*get_env_elem(t_list *env, char *name, size_t nlen)
 {
-	size_t		klen;
-	size_t		len;
-
-	klen = ft_strchr(key, '=') - key;
 	while (env)
 	{
-		len = (void*)ft_strchr((char*)env->content, '=') - env->content;
-		if (len == klen && !ft_strncmp(key, (char*)env->content, len))
-			break ;
+		if ((nlen == ENV_ELEM(env)->nlen
+		|| (!ENV_ELEM(env)->nlen && nlen == ENV_ELEM(env)->total_len))
+		&& !ft_strncmp(name, ENV_ELEM(env)->content, nlen))
+			return (ENV_ELEM(env));
 		env = env->next;
 	}
-	return (env);
+	return (NULL);
 }
 
 t_bool			env_elem_cmp(t_env_elem *e1, t_env_elem *e2)

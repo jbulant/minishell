@@ -6,50 +6,44 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 05:25:35 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/25 01:00:03 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/25 19:27:27 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int				insert_env_elem(t_list *env, t_env_elem *elem)
-// {
-// 	t_list		*dummy;
-//
-// 	dummy = env;
-// 	while (dummy)
-// 	{
-// 		if (!ft_memcmp(dummy->content, (void*)elem->elem, elem->nlen))
-// 		{
-//
-// 			break ;
-// 		}
-// 		dummy = dummy->next;
-// 	}
-// 	return (0);
-// }
-
-int				ft_setenv(t_minishell *msh)
+static int	find_and_replace(t_list *env, t_env_elem *elem)
 {
-	t_argbuffer *arg;
-	t_list		*var;
-	int			i;
-
-	if (!(arg = msh->current_arg) || !arg->keys[0])
-		return (0);
-	i = 0;
-	while (arg->keys[++i])
+	while (env)
 	{
-		if (!isvalidkey(arg->keys[i]))
-			continue ;
-		if (!(var = search_elem(msh->env, arg->keys[i])))
+		if (env_elem_cmp(elem, ENV_ELEM(env)))
 		{
-			if (!(var = ft_lstnew(arg->keys[i], ft_strlen(arg->keys[i]) + 1)))
-				return (-1);
-			ft_lstadd(&msh->env, var);
+			env_elem_update(ENV_ELEM(env), elem->content);
+			return (1);
 		}
-		else if (replace_elem(var, arg->keys[i]) == -1)
-			return (-1);
+		env = env->next;
+	}
+	return (0);
+}
+
+int			ft_setenv(t_minishell *msh)
+{
+	t_env_elem		elem;
+	t_argbuffer		*current_arg;
+	char			*key;
+	int				i;
+
+	current_arg = msh->current_arg;
+	i = -1;
+	while ((key = current_arg->keys[++i]))
+	{
+		if (!ft_strchr(key, '='))
+			continue ;
+		env_elem_update(&elem, key);
+		if (!find_and_replace(msh->env, &elem))
+			ft_lstadd(&msh->env, ft_lstnew(&elem, sizeof(t_env_elem)));
+		if (elem.nlen == 4 && !ft_strncmp(elem.content, "PATH", 4))
+			update_path(msh);
 	}
 	return (0);
 }

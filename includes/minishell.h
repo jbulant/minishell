@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 00:26:22 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/25 01:10:15 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/26 16:45:17 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "ft_error.h"
 # include "get_next_line.h"
 #include "msh_builtin.h"
+#include "msh_token.h"
 
 # define BI_COUNT		5
 
@@ -48,7 +49,9 @@ typedef struct	s_minishell
 {
 	t_list			*env;
 	char			**virtual_env;
+	char			**path;
 	t_ms_status		status;
+	t_usr_input		input;
 	t_argbuffer		*current_arg;
 	int				(*action)(struct s_minishell *);
 	t_builtin		*builtins;
@@ -63,7 +66,7 @@ int				get_usr_input(t_minishell *msh);
 int				parse_input(char *input, t_minishell *msh);
 int				check_builtins(t_argbuffer *arg, t_minishell *msh);
 
-char			**ft_create_wordtab(char *str);
+int				ft_exec_cmd(t_minishell *msh);
 
 /*
 **				[ ENV BUILTIN ]
@@ -83,11 +86,19 @@ int				builtin_env(t_minishell *msh);
 int				ft_setenv(t_minishell *msh);
 int				ft_unsetenv(t_minishell *msh);
 
+char			*get_elem_key(t_env_elem *elem);
+char			*get_elem_value(t_env_elem *elem);
+
+t_env_elem		*get_env_elem(t_list *env, char *name, size_t nlen);
 t_env_elem		*new_env_elem(char *elem);
+t_bool			env_elem_cmp(t_env_elem *e1, t_env_elem *e2);
 void			env_elem_update(t_env_elem *ret, char *elem);
 int				replace_elem(t_list *lst, char *value);
 t_list			*search_elem(t_list *env, char *key);
 
+void			update_path(t_minishell *msh);
+
+char			**env_toarray(t_list *env);
 /*
 **			[ VARIOUS BUILTINS ]
 */
