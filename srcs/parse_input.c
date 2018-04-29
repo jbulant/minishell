@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 01:03:46 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/25 06:05:43 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/27 05:47:35 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ int			parse_input(char *input, t_minishell *msh)
 		msh->builtins[ret].action(msh);
 	else if (!ft_exec_cmd(msh) && msh->current_arg->keys[0])
 	{
-		ft_putstr_fd(ERROR_HEAD, 2);
-		ft_putstr_fd(E3, 2);
+		ft_putstr_fd(E2, 2);
 		ft_putendl_fd(msh->current_arg->keys[0], 2);
 	}
 	del_argbuffer(&msh->current_arg);

@@ -6,13 +6,13 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 05:25:35 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/25 19:27:27 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/27 04:23:22 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	find_and_replace(t_list *env, t_env_elem *elem)
+int			env_find_replace(t_list *env, t_env_elem *elem)
 {
 	while (env)
 	{
@@ -40,7 +40,7 @@ int			ft_setenv(t_minishell *msh)
 		if (!ft_strchr(key, '='))
 			continue ;
 		env_elem_update(&elem, key);
-		if (!find_and_replace(msh->env, &elem))
+		if (!env_find_replace(msh->env, &elem))
 			ft_lstadd(&msh->env, ft_lstnew(&elem, sizeof(t_env_elem)));
 		if (elem.nlen == 4 && !ft_strncmp(elem.content, "PATH", 4))
 			update_path(msh);

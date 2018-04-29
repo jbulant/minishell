@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 00:13:40 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/26 16:24:55 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/28 19:52:32 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,20 @@ void		update_path(t_minishell *msh)
 	ft_arstrdel(msh->path);
 	path = get_elem_value(get_env_elem(msh->env, "PATH", 4));
 	msh->path = ft_strsplit(path, ':');
-	for (int i = 0; msh->path[i]; i++)
-		ft_putendl(msh->path[i]);
+	// for (int i = 0; msh->path[i]; i++)
+	// 	ft_putendl(msh->path[i]);
 
 }
 
 int			msh_init(char **env, t_minishell *msh)
 {
-	ft_bzero(msh, sizeof(msh));
+	msh->virtual_env = NULL;
 	msh->path = NULL;
-	msh->env = create_env_lst(env);
+	msh->env = *env ? create_env_lst(env) : NULL;
 	msh->action = get_usr_input;
 	msh->builtins = create_builtins();
-	update_path(msh);
+	if (*env)
+		update_path(msh);
 	// usr_input_init(&msh->input);
 	return (0);
 }

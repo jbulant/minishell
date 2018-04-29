@@ -6,12 +6,12 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/26 16:38:08 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/26 16:43:49 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/28 17:09:40 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+#include <stdio.h>
 static size_t	get_lstheight(t_list *head)
 {
 	size_t	cnt;
@@ -35,7 +35,8 @@ char			**env_toarray(t_list *env)
 		return (NULL);
 	while (env)
 	{
-		ar[--height] = ENV_ELEM(env)->content;
+		ar[--height] = ft_strdup(ENV_ELEM(env)->content);
+		// printf("%p|| %zu: %s\n",ar[height], height, ar[height]);
 		env = env->next;
 	}
 	return (ar);

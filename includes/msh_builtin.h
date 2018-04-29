@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 02:35:33 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/25 18:58:31 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/27 02:46:08 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,11 @@ typedef struct s_minishell t_minishell;
 
 # define BI_MAX_NAME	255
 
-# define BI_NAMES		BI_1, BI_2, BI_3, BI_4, BI_5
-# define BI_FUNCT		BIF_1, BIF_2, BIF_3, BIF_4, BIF_5
+# define BI_NAMES		BI_1, BI_2, BI_3, BI_4, BI_5, BI_6
+# define BI_FUNCT		BIF_1, BIF_2, BIF_3, BIF_4, BIF_5, BIF_6
+
+# define BI_6			"cd"
+# define BIF_6			ft_cd
 
 # define BI_5			"echo"
 # define BIF_5			ft_echo

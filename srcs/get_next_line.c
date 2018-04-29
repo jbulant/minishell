@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbulant <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 12:21:05 by jbulant           #+#    #+#             */
-/*   Updated: 2017/11/27 02:11:47 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/29 22:18:06 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
+#include <stdio.h>
 static void			close_fd(t_fd_lst **fd_contents)
 {
 	t_fd_lst *to_del;
@@ -24,6 +24,8 @@ static void			close_fd(t_fd_lst **fd_contents)
 	(*fd_contents)->next = next;
 	if (to_del->line)
 		free(to_del->line);
+	if (to_del == *fd_contents)
+		*fd_contents = NULL;
 	free(to_del);
 }
 
@@ -73,14 +75,18 @@ static int			fill(char **line, t_fd_lst *curr_fd)
 
 static int			read_fd(t_fd_lst *curr_fd, char **line)
 {
-	char		buffer[BUFF_SIZE];
+	char		buffer[BUFF_SIZE + 1];
 	char		*tmp;
 	ssize_t		read_size;
 
+	ft_bzero(buffer, BUFF_SIZE + 1);
 	while ((read_size = read(curr_fd->fd, buffer, BUFF_SIZE)) > 0)
 	{
 		tmp = ft_strndup(curr_fd->line, ft_strlen(curr_fd->line) + read_size);
 		free(curr_fd->line);
+		curr_fd->line = NULL;
+		if (!tmp)
+			return (-1);
 		curr_fd->line = tmp;
 		ft_strncat(curr_fd->line, buffer, (size_t)read_size);
 		if (ft_memchr(buffer, LF, read_size))
@@ -100,9 +106,10 @@ int					get_next_line(const int fd, char **line)
 	if (fd < 0 || !line || BUFF_SIZE < 0
 		|| !(curr_fd = get_fd_contents(&fd_contents, fd)))
 		return (-1);
-	if (curr_fd->line && ft_strchr(curr_fd->line, LF))
+	if (curr_fd->line && (ft_strchr(curr_fd->line, LF)
+	|| ft_strchr(curr_fd->line, 4)))
 		return (fill(line, curr_fd));
-	if ((read_ret = read_fd(curr_fd, line)) <= 0)
+	if ((read_ret = read_fd(curr_fd, line)) <= 0 || fd == 0)
 		close_fd(&fd_contents);
 	return (read_ret);
 }

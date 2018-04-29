@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 00:26:22 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/26 16:45:17 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/28 20:14:11 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,21 @@
 # define MINISHELL_H
 
 # include <stdio.h>
+# include <signal.h>
 # include <unistd.h>
 # include <sys/types.h>
+# include <sys/stat.h>
 # include <sys/wait.h>
 # include <limits.h>
+# include <termios.h>
 # include "libft.h"
 # include "ft_pmatch.h"
 # include "ft_error.h"
 # include "get_next_line.h"
-#include "msh_builtin.h"
-#include "msh_token.h"
+# include "msh_builtin.h"
+# include "msh_prompt.h"
 
-# define BI_COUNT		5
+# define BI_COUNT		6
 
 typedef struct s_builtin	t_builtin;
 
@@ -47,11 +50,11 @@ typedef struct	s_argbuffer
 
 typedef struct	s_minishell
 {
+	int				retval;
 	t_list			*env;
 	char			**virtual_env;
 	char			**path;
 	t_ms_status		status;
-	t_usr_input		input;
 	t_argbuffer		*current_arg;
 	int				(*action)(struct s_minishell *);
 	t_builtin		*builtins;
@@ -86,8 +89,11 @@ int				builtin_env(t_minishell *msh);
 int				ft_setenv(t_minishell *msh);
 int				ft_unsetenv(t_minishell *msh);
 
+void			env_create_tmpkey(t_env_elem *elem, char *key, char *content);
 char			*get_elem_key(t_env_elem *elem);
 char			*get_elem_value(t_env_elem *elem);
+
+int				env_find_replace(t_list *env, t_env_elem *elem);
 
 t_env_elem		*get_env_elem(t_list *env, char *name, size_t nlen);
 t_env_elem		*new_env_elem(char *elem);
@@ -103,6 +109,7 @@ char			**env_toarray(t_list *env);
 **			[ VARIOUS BUILTINS ]
 */
 
+int				ft_cd(t_minishell *msh);
 int				ft_echo(t_minishell *msh);
 int				sh_exit(t_minishell *msh);
 

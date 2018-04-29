@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 22:17:08 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/23 01:13:57 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/29 21:57:06 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include "libft.h"
 
-# define BUFF_SIZE 4096
+# define BUFF_SIZE 256
 # define LF '\n'
 
 typedef struct		s_fd_lst
@@ -26,6 +26,7 @@ typedef struct		s_fd_lst
 	char			*line;
 	struct s_fd_lst	*next;
 }					t_fd_lst;
+
 int					get_next_line(const int fd, char **line);
 
 #endif

@@ -8,21 +8,12 @@ LIBFT_NAME = libft.a
 
 LIBFT = $(LIBFTDIR)$(LIBFT_NAME)
 
-LIBFTSTACK_DIR = libft_stack/
-LIBFTSTACK_NAME = libft_stack.a
-
-LIBFTSTACK = $(LIBFTSTACK_DIR)$(LIBFTSTACK_NAME)
-
-LIBFTAWSTR_DIR = libft_awstr/
-LIBFTAWSTR_NAME = libft_awstr.a
-
-LIBFTAWSTR = $(LIBFTAWSTR_DIR)$(LIBFTAWSTR_NAME)
-
 OBJDIR = objs/
 SRCSDIR = srcs/
 
 SRCS_NAME = main.c \
 			minishell_init.c \
+			msh_prompt.c \
 			new_argbuffer.c \
 			getusr.c \
 			parse_input.c \
@@ -40,30 +31,26 @@ SRCS_NAME = main.c \
 			builtin/setenv.c \
 			builtin/unsetenv.c \
 			builtin/ft_echo.c \
+			builtin/ft_cd.c \
 			builtin/sh_exit.c
 
 SRCS = $(addprefix $(SRCSDIR),$(SRCS_NAME))
 OBJS = $(addprefix $(OBJDIR),$(SRCS_NAME:.c=.o))
 
 INCLUDES =	-Iincludes \
-			-I$(LIBFTDIR)includes \
-			-I$(LIBFTSTACK_DIR)includes \
-			-I$(LIBFTAWSTR_DIR)includes
+			-I$(LIBFTDIR)includes
 
-LIBS =	-L $(LIBFTDIR) -lft \
- 		-L $(LIBFTSTACK_DIR) -lft_stack \
- 		-L $(LIBFTAWSTR_DIR) -lft_awstr
+LIBS =	-L $(LIBFTDIR) -lft
 
 CFLAGS = -Wall -Wextra -Werror
 DEBUGFLAGS = -fsanitize=address -g3
-#DEBUGFLAGS = -fsanitize=address -lasan -g3
 
 HEADERS_PATH = includes/
 HEADERS_NAME =	minishell.h \
 				get_next_line.h \
 				ft_error.h \
 				msh_builtin.h \
-				msh_token.h \
+				msh_prompt.h \
 				ft_pmatch.h
 
 HEADERS = $(addprefix $(HEADERS_PATH), $(HEADERS_NAME))
@@ -86,13 +73,7 @@ $(OBJDIR)%.o: $(SRCSDIR)%.c ${HEADERS}
 $(LIBFT):
 	@make -C $(LIBFTDIR)
 
-$(LIBFTSTACK):
-	@make -C $(LIBFTSTACK_DIR)
-
-$(LIBFTAWSTR):
-	@make -C $(LIBFTAWSTR_DIR)
-
-$(NAME): $(OBJS) $(LIBFT) $(LIBFTSTACK) $(LIBFTAWSTR)
+$(NAME): $(OBJS) $(LIBFT)
 	@if [ $(DEBUG) -eq 1 ];\
 	then\
 		$(CC) $(CFLAGS) $(DEBUGFLAGS) -o $(NAME) $(INCLUDES) $(OBJS) $(LIBS);\
@@ -105,13 +86,9 @@ clean:
 	rm -f $(OBJS)
 	rm -rf $(OBJDIR)
 	@make -C $(LIBFTDIR) clean
-	@make -C $(LIBFTSTACK_DIR) clean
-	@make -C $(LIBFTAWSTR_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
 	@make -C $(LIBFTDIR) fclean
-	@make -C $(LIBFTSTACK_DIR) fclean
-	@make -C $(LIBFTAWSTR_DIR) fclean
 
 re: fclean all

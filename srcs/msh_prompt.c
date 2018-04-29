@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_stack_add_content.c                             :+:      :+:    :+:   */
+/*   msh_prompt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/18 01:45:44 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/18 01:45:58 by jbulant          ###   ########.fr       */
+/*   Created: 2018/04/27 22:23:01 by jbulant           #+#    #+#             */
+/*   Updated: 2018/04/27 22:43:13 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_stack.h"
+#include "msh_prompt.h"
 
-int		ft_stack_add_content(t_stack *stack, void *content)
+char		*update_ps(char *psvar)
 {
-	size_t		height;
+	static char		ps[4096];
+	char			*dummy;
 
-	if ((!stack->blocks_count
-		|| stack->blocks[stack->blocks_count - 1]->size == stack->chunk_size)
-		&& !ft_stack_newblock(stack))
-		return (FT_STACK_ERROR);
-	height = stack->blocks_count - 1;
-	stack->blocks[height]->content[stack->blocks[height]->size++] = content;
-	return (1);
+	if (psvar == PS_DEFAULT)
+	{
+		if (!(dummy = getcwd(ps, 4095)))
+			*(int*)ps = *(int*)"$> ";
+		else
+			ft_strcat(ps, "$ ");
+	}
+	else
+		ft_strcpy(ps, psvar);
+	return (ps);
 }
