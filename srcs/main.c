@@ -6,23 +6,20 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 00:37:28 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/29 23:13:55 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/30 04:54:15 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int		g_sigint = 0;
-
-void msh_clean(t_minishell *msh)
+static void	msh_clean(t_minishell *msh)
 {
 	ft_lstdel(&msh->env, ft_memdel);
 	del_argbuffer(&msh->current_arg);
 	ft_arstrdel(msh->path);
-	// ft_arstrdel(msh->virtual_env);
 }
 
-void sighandler(int sig)
+static void	sighandler(int sig)
 {
 	signal(sig, SIG_IGN);
 	ft_putchar('\n');
@@ -30,7 +27,7 @@ void sighandler(int sig)
 	signal( SIGINT, sighandler );
 }
 
-int main(int ac, char **av, char **env)
+int			main(int ac, char **av, char **env)
 {
 	t_minishell msh;
 

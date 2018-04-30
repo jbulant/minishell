@@ -6,13 +6,13 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 00:13:40 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/28 19:52:32 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/30 04:53:37 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_list		*create_env_lst(char **env)
+static t_list	*create_env_lst(char **env)
 {
 	t_list		*elst;
 	t_list		*newlst;
@@ -31,19 +31,37 @@ t_list		*create_env_lst(char **env)
 	return (elst);
 }
 
-void		update_path(t_minishell *msh)
+void			update_path(t_minishell *msh)
 {
 	char		*path;
 
 	ft_arstrdel(msh->path);
 	path = get_elem_value(get_env_elem(msh->env, "PATH", 4));
-	msh->path = ft_strsplit(path, ':');
-	// for (int i = 0; msh->path[i]; i++)
-	// 	ft_putendl(msh->path[i]);
-
+	if (!(msh->path = ft_strsplit(path, ':')))
+	{
+		msh->status = TERMINATE;
+		return ((void)ft_perror(FTE_TOOBIG));
+	}
 }
 
-int			msh_init(char **env, t_minishell *msh)
+char			*update_ps(char *psvar)
+{
+	static char		ps[4099];
+	char			*dummy;
+
+	if (psvar == PS_DEFAULT)
+	{
+		if (!(dummy = getcwd(ps, 4096)))
+			*(int*)ps = *(int*)"$> ";
+		else
+			ft_strcat(ps, "$ ");
+	}
+	else
+		ft_strcpy(ps, psvar);
+	return (ps);
+}
+
+int				msh_init(char **env, t_minishell *msh)
 {
 	msh->virtual_env = NULL;
 	msh->path = NULL;
@@ -52,6 +70,5 @@ int			msh_init(char **env, t_minishell *msh)
 	msh->builtins = create_builtins();
 	if (*env)
 		update_path(msh);
-	// usr_input_init(&msh->input);
 	return (0);
 }

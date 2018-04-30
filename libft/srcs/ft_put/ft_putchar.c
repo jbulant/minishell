@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_prompt.h                                       :+:      :+:    :+:   */
+/*   ft_putchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/27 22:17:06 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/28 20:10:38 by jbulant          ###   ########.fr       */
+/*   Created: 2017/11/07 17:29:46 by jbulant           #+#    #+#             */
+/*   Updated: 2018/04/30 02:49:40 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MSH_PROMPT_H
-# define MSH_PROMPT_H
+#include <unistd.h>
+#include "libft.h"
 
-# include <unistd.h>
-# include "libft.h"
-
-# define	 PS_DEFAULT		NULL
-
-char	*update_ps(char *ps);
-
-#endif
+int		ft_putchar(char c)
+{
+	return (write(1, &c, 1));
+}

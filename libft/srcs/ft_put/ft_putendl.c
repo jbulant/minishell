@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   ft_putendl.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbulant <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/07 17:30:28 by jbulant           #+#    #+#             */
-/*   Updated: 2017/11/11 05:36:00 by jbulant          ###   ########.fr       */
+/*   Created: 2017/11/07 17:32:51 by jbulant           #+#    #+#             */
+/*   Updated: 2018/04/30 03:04:45 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
 
-void	ft_putchar_fd(char c, int fd)
+int		ft_putendl(char *str)
 {
-	write(fd, &c, 1);
+	ft_putstr(str);
+	return (ft_putchar('\n'));
 }

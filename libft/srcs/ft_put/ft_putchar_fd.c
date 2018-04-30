@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_char_pattern.c                              :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/24 03:54:56 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/26 16:35:38 by jbulant          ###   ########.fr       */
+/*   Created: 2017/11/07 17:30:28 by jbulant           #+#    #+#             */
+/*   Updated: 2018/04/30 02:49:05 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pmatch.h"
+#include <unistd.h>
+#include "libft.h"
 
-t_chrmsk	new_chrmsk(char *pattern)
+int		ft_putchar_fd(char c, int fd)
 {
-	t_chrmsk	ret;
-	int			i;
-	int			j;
-
-	ft_bzero(&ret, sizeof(ret));
-	while (*pattern)
-	{
-		if (*pattern < 0)
-			continue ;
-		i = *pattern % 32;
-		j = *pattern / 32;
-		if (!(ret.pattern[j] & (1 << i)))
-			ret.pattern[j] |= (1 << i);
-		pattern++;
-	}
-	return (ret);
+	return (write(fd, &c, 1));
 }

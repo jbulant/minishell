@@ -6,13 +6,13 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 02:29:19 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/25 02:21:27 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/30 04:39:30 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				print_env(t_list *env)
+static int		print_env(t_list *env)
 {
 	if (!env)
 		return (0);

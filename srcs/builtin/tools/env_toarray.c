@@ -1,30 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_prompt.c                                       :+:      :+:    :+:   */
+/*   env_toarray.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/27 22:23:01 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/27 22:43:13 by jbulant          ###   ########.fr       */
+/*   Created: 2018/04/26 16:38:08 by jbulant           #+#    #+#             */
+/*   Updated: 2018/04/30 04:41:50 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "msh_prompt.h"
+#include "minishell.h"
 
-char		*update_ps(char *psvar)
+static size_t	get_lstheight(t_list *head)
 {
-	static char		ps[4096];
-	char			*dummy;
+	size_t	cnt;
 
-	if (psvar == PS_DEFAULT)
+	cnt = 0;
+	while (head)
 	{
-		if (!(dummy = getcwd(ps, 4095)))
-			*(int*)ps = *(int*)"$> ";
-		else
-			ft_strcat(ps, "$ ");
+		cnt++;
+		head = head->next;
 	}
-	else
-		ft_strcpy(ps, psvar);
-	return (ps);
+	return (cnt);
+}
+
+char			**env_toarray(t_list *env)
+{
+	char	**ar;
+	size_t	height;
+
+	if (!(height = get_lstheight(env))
+	|| !(ar = ft_arstrnew(height)))
+		return (NULL);
+	while (env)
+	{
+		ar[--height] = ft_strdup(ENV_ELEM(env)->content);
+		env = env->next;
+	}
+	return (ar);
 }

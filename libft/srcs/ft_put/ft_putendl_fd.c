@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbulant <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/07 18:40:26 by jbulant           #+#    #+#             */
-/*   Updated: 2017/11/09 06:43:16 by jbulant          ###   ########.fr       */
+/*   Created: 2017/11/07 17:33:35 by jbulant           #+#    #+#             */
+/*   Updated: 2018/04/30 03:04:30 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+int		ft_putendl_fd(char *str, int fd)
 {
-	t_byte *ab;
-
-	ab = (t_byte*)s;
-	while (n--)
-		*ab++ = 0;
+	ft_putstr_fd(str, fd);
+	return (ft_putchar_fd('\n', fd));
 }

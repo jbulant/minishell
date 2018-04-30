@@ -6,11 +6,10 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 04:05:30 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/26 02:50:59 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/30 04:06:40 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pmatch.h"
 #include "libft.h"
 
 static size_t	get_wc(char *str, t_chrmsk delim)

@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 00:26:22 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/28 20:14:11 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/30 05:01:32 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,14 @@
 
 # include <stdio.h>
 # include <signal.h>
-# include <unistd.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/wait.h>
-# include <limits.h>
-# include <termios.h>
 # include "libft.h"
-# include "ft_pmatch.h"
 # include "ft_error.h"
-# include "get_next_line.h"
 # include "msh_builtin.h"
-# include "msh_prompt.h"
 
+# define PS_DEFAULT		NULL
 # define BI_COUNT		6
 
 typedef struct s_builtin	t_builtin;
@@ -35,10 +30,7 @@ typedef struct s_builtin	t_builtin;
 typedef enum e_ms_status
 {
 	INTERPRET = 0,
-	LEX = 1,
-	PARS = 2,
-	EXEC = 3,
-	TERMINATE = 4
+	TERMINATE = 1
 }			t_ms_status;
 
 typedef struct	s_argbuffer
@@ -71,6 +63,11 @@ int				check_builtins(t_argbuffer *arg, t_minishell *msh);
 
 int				ft_exec_cmd(t_minishell *msh);
 
+char			**new_virtual_env(t_minishell *msh);
+
+void			update_path(t_minishell *msh);
+char			*update_ps(char *ps);
+
 /*
 **				[ ENV BUILTIN ]
 */
@@ -79,7 +76,7 @@ int				ft_exec_cmd(t_minishell *msh);
 
 typedef struct	s_env_elem
 {
-	char		content[4096];
+	char		content[_POSIX_ARG_MAX];
 	size_t		nlen;
 	size_t		total_len;
 }				t_env_elem;
@@ -95,6 +92,7 @@ char			*get_elem_value(t_env_elem *elem);
 
 int				env_find_replace(t_list *env, t_env_elem *elem);
 
+int				env_setvar(t_minishell *msh, char *var, char *value);
 t_env_elem		*get_env_elem(t_list *env, char *name, size_t nlen);
 t_env_elem		*new_env_elem(char *elem);
 t_bool			env_elem_cmp(t_env_elem *e1, t_env_elem *e2);
@@ -102,14 +100,21 @@ void			env_elem_update(t_env_elem *ret, char *elem);
 int				replace_elem(t_list *lst, char *value);
 t_list			*search_elem(t_list *env, char *key);
 
-void			update_path(t_minishell *msh);
-
 char			**env_toarray(t_list *env);
+
+/*
+**			[ CD BUILTINS ]
+*/
+
+int				ft_cd(t_minishell *msh);
+
+int				goto_fname(t_minishell *msh, char *path);
+int				env_gotovar(t_minishell *msh, char *var);
+
 /*
 **			[ VARIOUS BUILTINS ]
 */
 
-int				ft_cd(t_minishell *msh);
 int				ft_echo(t_minishell *msh);
 int				sh_exit(t_minishell *msh);
 
