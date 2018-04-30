@@ -6,12 +6,11 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 03:25:39 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/24 03:47:55 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/30 15:56:21 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "msh_builtin.h"
 
 static char		*builtin_n(int i)
 {

@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/30 02:34:44 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/30 05:01:29 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/30 05:15:24 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ int			env_gotovar(t_minishell *msh, char *var)
 	if (!(lst = search_elem(msh->env, var)))
 		return (goto_fname(msh, "/"));
 	elem = ENV_ELEM(lst);
+	if (ft_strequ(var, "OLDPWD"))
+		ft_putendl(elem->content + (elem->nlen + 1));
 	return (!goto_fname(msh, elem->content + (elem->nlen + 1)));
 }

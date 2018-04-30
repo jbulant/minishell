@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/23 12:21:05 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/30 04:15:37 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/30 16:05:08 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static int			fill(char **line, t_fd_lst *curr_fd)
 	char	*tmp;
 	size_t	lf_pos;
 
+	if (!ft_strchr(curr_fd->line, '\n'))
+		ft_putchar('\n');
 	lf_pos = ft_strclen(curr_fd->line, LF);
 	if (!(*line = ft_strndup(curr_fd->line, lf_pos++)))
 		return (-1);
