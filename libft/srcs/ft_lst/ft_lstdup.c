@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_lstdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/22 22:17:08 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/29 21:57:06 by jbulant          ###   ########.fr       */
+/*   Created: 2018/04/30 22:57:58 by jbulant           #+#    #+#             */
+/*   Updated: 2018/05/01 00:33:06 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include "libft.h"
-
-# define BUFF_SIZE 256
-# define LF '\n'
-
-typedef struct		s_fd_lst
+t_list		*dup_it(t_list **target, t_list *dup)
 {
-	int				fd;
-	char			*line;
-	struct s_fd_lst	*next;
-}					t_fd_lst;
+	if (dup->next)
+		ft_lstadd(target, dup_it(target, dup->next));
+	return (ft_lstnew(dup->content, dup->content_size));
+}
 
-int					get_next_line(const int fd, char **line);
+t_list		*ft_lstdup(t_list *dup)
+{
+	t_list	*ret;
 
-#endif
+	if (!dup)
+		return (NULL);
+	ret = NULL;
+	ft_lstadd(&ret, dup_it(&ret, dup));
+	return (ret);
+}

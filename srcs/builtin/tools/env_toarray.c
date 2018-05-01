@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/26 16:38:08 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/30 04:41:50 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/05/01 00:15:07 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ char			**env_toarray(t_list *env)
 	char	**ar;
 	size_t	height;
 
-	if (!(height = get_lstheight(env))
-	|| !(ar = ft_arstrnew(height)))
+	height = get_lstheight(env);
+	if (!(ar = ft_arstrnew(height)))
 		return (NULL);
 	while (env)
 	{

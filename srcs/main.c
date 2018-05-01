@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/21 00:37:28 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/30 04:54:15 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/05/01 00:46:50 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	sighandler(int sig)
 	signal(sig, SIG_IGN);
 	ft_putchar('\n');
 	ft_putstr(update_ps(PS_DEFAULT));
-	signal( SIGINT, sighandler );
+	signal(SIGINT, sighandler);
 }
 
 int			main(int ac, char **av, char **env)
@@ -34,9 +34,9 @@ int			main(int ac, char **av, char **env)
 	ft_bzero(&msh, sizeof(t_minishell));
 	(void)ac;
 	(void)av;
-	signal( SIGINT, sighandler );
+	signal(SIGINT, sighandler);
 	msh_init(env, &msh);
-	while(msh.status != TERMINATE)
+	while (msh.status != TERMINATE)
 		msh.action(&msh);
 	msh_clean(&msh);
 	return (msh.retval);

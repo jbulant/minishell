@@ -6,13 +6,13 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/30 02:43:08 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/30 04:33:37 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/30 20:20:06 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void restore_env(t_minishell *msh, t_list *to_restore, void *old_cntt)
+static void	restore_env(t_minishell *msh, t_list *to_restore, void *old_cntt)
 {
 	if (!to_restore)
 	{

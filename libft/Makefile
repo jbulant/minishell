@@ -6,7 +6,7 @@
 #    By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 16:49:28 by jbulant           #+#    #+#              #
-#    Updated: 2018/04/30 04:20:17 by jbulant          ###   ########.fr        #
+#    Updated: 2018/05/01 00:23:11 by jbulant          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,10 +61,7 @@ SRCS_NAME = \
 			ft_lst/ft_lstprint.c \
 			ft_lst/ft_lstrprint.c \
 			ft_lst/ft_lstprint_content.c \
-			ft_math/ft_abs.c \
-			ft_math/ft_npow.c \
-			ft_math/ft_poweroftwo.c \
-			ft_math/ft_poweroften.c \
+			ft_lst/ft_lstdup.c \
 			ft_mem/ft_memset.c \
 			ft_mem/ft_bzero.c \
 			ft_mem/ft_memcpy.c \
@@ -129,6 +126,7 @@ OBJ_ROOTDIR = objs/
 OBJ_VDIR = $(addprefix $(OBJ_ROOTDIR),$(SRCS_DIR))
 SRCS_ROOTDIR = srcs/
 HEADERS_PATH = includes/
+HEADERS_NAME = libft.h
 
 SRCS = $(addprefix $(SRCS_ROOTDIR),$(SRCS_NAME))
 OBJS = $(addprefix $(OBJ_ROOTDIR),$(SRCS_NAME:.c=.o))
@@ -137,7 +135,8 @@ HEADERS = $(addprefix $(HEADERS_PATH), $(HEADERS_NAME))
 CC = gcc
 INCLUDES = -Iincludes
 CFLAGS = -Wall -Wextra -Werror
-DEBUGFLAGS = -fsanitize=address -g3
+# DEBUGFLAGS = -fsanitize=address -g3
+DEBUGFLAGS = -g3
 
 .PHONY: all clean fclean re
 

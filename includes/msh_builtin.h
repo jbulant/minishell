@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 02:35:33 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/27 02:46:08 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/30 19:26:14 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # include <limits.h>
 # include "libft.h"
 
-typedef struct s_minishell t_minishell;
+typedef struct s_minishell	t_minishell;
+typedef struct s_builtin	t_builtin;
 
 # define BI_MAX_NAME	255
 
@@ -41,15 +42,15 @@ typedef struct s_minishell t_minishell;
 # define BI_1			"env"
 # define BIF_1			builtin_env
 
-typedef struct	s_builtin
+struct		s_builtin
 {
 	char	name[BI_MAX_NAME + 1];
 	size_t	nlen;
 	int		(*action)(t_minishell *);
-}				t_builtin;
+};
 
-t_builtin		*create_builtins(void);
+t_builtin	*create_builtins(void);
 
-t_bool			isvalidkey(char *key);
+t_bool		isvalidkey(char *key);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/30 02:34:44 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/30 05:15:24 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/30 20:18:42 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			goto_fname(t_minishell *msh, char *path)
 {
-	struct stat		info;
+	struct stat	info;
 	char		oldpwd[_POSIX_ARG_MAX + 1];
 	char		*dummy;
 

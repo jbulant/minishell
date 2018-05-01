@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 03:25:39 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/30 15:56:21 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/04/30 20:14:41 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static char		*builtin_n(int i)
 {
-	char	*name[BI_COUNT] = {BI_NAMES};
+	static char	*name[BI_COUNT] = {BI_NAMES};
 
 	return (name[i]);
 }
 
 static int		(*builtin_f(int i))()
 {
-	int			(*action[BI_COUNT])() = {BI_FUNCT};
+	static int	(*action[BI_COUNT])() = {BI_FUNCT};
 
 	return (action[i]);
 }

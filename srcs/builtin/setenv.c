@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 05:25:35 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/27 04:23:22 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/05/01 01:59:19 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int			ft_setenv(t_minishell *msh)
 		if (!env_find_replace(msh->env, &elem))
 			ft_lstadd(&msh->env, ft_lstnew(&elem, sizeof(t_env_elem)));
 		if (elem.nlen == 4 && !ft_strncmp(elem.content, "PATH", 4))
-			update_path(msh);
+			update_path(msh, msh->env);
 	}
 	return (0);
 }

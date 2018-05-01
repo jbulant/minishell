@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 00:13:40 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/30 04:53:37 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/05/01 01:55:13 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ static t_list	*create_env_lst(char **env)
 	return (elst);
 }
 
-void			update_path(t_minishell *msh)
+void			update_path(t_minishell *msh, t_list *env)
 {
 	char		*path;
 
 	ft_arstrdel(msh->path);
-	path = get_elem_value(get_env_elem(msh->env, "PATH", 4));
-	if (!(msh->path = ft_strsplit(path, ':')))
+	path = get_elem_value(get_env_elem(env, "PATH", 4));
+	if (path && !(msh->path = ft_strsplit(path, ':')))
 	{
 		msh->status = TERMINATE;
-		return ((void)ft_perror(FTE_TOOBIG));
+		return ((void)ft_perror(FTE_NOMEM));
 	}
 }
 
@@ -69,6 +69,6 @@ int				msh_init(char **env, t_minishell *msh)
 	msh->action = get_usr_input;
 	msh->builtins = create_builtins();
 	if (*env)
-		update_path(msh);
+		update_path(msh, msh->env);
 	return (0);
 }
