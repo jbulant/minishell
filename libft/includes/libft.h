@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 16:11:45 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/30 22:57:25 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/05/01 22:36:22 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int				ft_strncasecmp(const char *s1, const char *s2, size_t n);
 char			*ft_strnew(size_t size);
 char			*ft_strrealloc(char **dst, size_t new_size);
 void			ft_strdel(char **as);
-void			ft_arstrdel(char **ar);
+void			ft_arstrdel(char ***ar);
 void			ft_strclr(char *str);
 void			ft_striter(char *str, void (*f)(char *));
 void			ft_striteri(char *str, void (*f)(unsigned int, char *));

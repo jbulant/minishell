@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 00:13:40 by jbulant           #+#    #+#             */
-/*   Updated: 2018/05/01 01:55:13 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/05/02 00:50:52 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ void			update_path(t_minishell *msh, t_list *env)
 {
 	char		*path;
 
-	ft_arstrdel(msh->path);
+	if (msh->path)
+		ft_arstrdel(&msh->path);
+	msh->path = NULL;
 	path = get_elem_value(get_env_elem(env, "PATH", 4));
 	if (path && !(msh->path = ft_strsplit(path, ':')))
 	{

@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 01:33:32 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/30 23:20:12 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/05/02 00:41:05 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,13 @@
 
 # include "libft.h"
 
-# define MAX_ERROR_STATE	7
+# define MAX_ERROR_STATE	8
 
 # define DFLT_H				"minishell: "
 # define CD_H				DFLT_H "cd: "
-# define ERROR_MSGS			E1, E2, E3, E4, E5, E6, E7
+# define ERROR_MSGS			E1, E2, E3, E4, E5, E6, E7, E8
 
+# define E8					DFLT_H "exec format error: "
 # define E7					"Out of memory"
 # define E6					": Not a directory"
 # define E5					": Permission denied"
@@ -37,11 +38,12 @@ typedef enum	e_error_state
 	FTE_ISDIR = 3,
 	FTE_ACCES = 4,
 	FTE_NOTDIR = 5,
-	FTE_NOMEM = 6
-
+	FTE_NOMEM = 6,
+	FTE_EXECF = 7
 }				t_error_state;
 
 int				ft_cderror(t_error_state err, char *filename);
+char			*ft_strerror(t_error_state err);
 int				ft_perror(t_error_state err);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 01:30:24 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/30 04:28:14 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/05/02 00:50:48 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_error.h"
 
-static char	*ston_errormsg(t_error_state err)
+char		*ft_strerror(t_error_state err)
 {
 	static char	*msg[MAX_ERROR_STATE] = {ERROR_MSGS};
 
@@ -25,7 +25,7 @@ int			ft_perror(t_error_state err)
 {
 	char	*msg;
 
-	if ((msg = ston_errormsg(err)))
+	if ((msg = ft_strerror(err)))
 		ft_putendl_fd(msg, 2);
 	return (-1);
 }

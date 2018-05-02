@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 00:53:32 by jbulant           #+#    #+#             */
-/*   Updated: 2018/04/30 03:10:16 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/05/02 02:14:20 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			get_usr_input(t_minishell *msh)
 	if (get_next_line(0, &input) <= 0)
 	{
 		msh->status = TERMINATE;
-		return (ft_putendl("exit"));
+		return (0);
 	}
 	tab = *input ? ft_strsplit(input, ';') : NULL;
 	free(input);
@@ -34,6 +34,6 @@ int			get_usr_input(t_minishell *msh)
 	while (tab[++i])
 		if ((ret = parse_input(tab[i], msh)) == -1)
 			break ;
-	ft_arstrdel(tab);
+	ft_arstrdel(&tab);
 	return (ret);
 }

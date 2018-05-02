@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/24 05:25:35 by jbulant           #+#    #+#             */
-/*   Updated: 2018/05/01 01:59:19 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/05/02 02:08:16 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			ft_setenv(t_minishell *msh)
 	i = -1;
 	while ((key = current_arg->keys[++i]))
 	{
-		if (!ft_strchr(key, '='))
+		if (!ft_strchr(key, '=') || *key == '=')
 			continue ;
 		env_elem_update(&elem, key);
 		if (!env_find_replace(msh->env, &elem))

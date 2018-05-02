@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/23 02:29:19 by jbulant           #+#    #+#             */
-/*   Updated: 2018/05/01 01:58:55 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/05/02 00:50:56 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,15 @@ static int		parse_args(t_minishell *msh, t_list **tmpenv, int i)
 		ft_putstr_fd(E2, 2);
 		ft_putendl_fd(msh->current_arg->keys[i], 2);
 	}
-	if (msh->virtual_env)
-		ft_arstrdel(msh->virtual_env);
-	msh->virtual_env = NULL;
+	ft_arstrdel(&msh->virtual_env);
 	return (0);
 }
 
-static int		check_args(t_minishell *msh, t_list **tmpenv)
+static int		check_args(t_minishell *msh, t_list **tmpenv, int i)
 {
 	t_env_elem	elem;
 	char		*tmp;
-	int			i;
 
-	i = *tmpenv ? 0 : 1;
 	while ((tmp = msh->current_arg->keys[++i]) && ft_strchr(tmp, '='))
 	{
 		env_elem_update(&elem, tmp);
@@ -64,16 +60,19 @@ int				builtin_env(t_minishell *msh)
 	int		i;
 
 	path = msh->path;
+	i = 0;
 	if (msh->current_arg->keys[1]
 		&& !ft_strcmp(msh->current_arg->keys[1], "-i"))
+	{
 		tmpenv = NULL;
+		i = 1;
+	}
 	else
 		tmpenv = ft_lstdup(msh->env);
-	if ((i = check_args(msh, &tmpenv)))
+	if ((i = check_args(msh, &tmpenv, i)))
 		parse_args(msh, &tmpenv, i);
 	else
 		print_env(tmpenv);
-	if (path != msh->path)
-		update_path(msh, msh->env);
+	update_path(msh, msh->env);
 	return (0);
 }

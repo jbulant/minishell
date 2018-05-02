@@ -45,8 +45,8 @@ SRCS_ROOTDIR = srcs/
 LIBS =	-L $(LIBFTDIR) -lft
 
 CFLAGS = -Wall -Wextra -Werror
-# DEBUGFLAGS = -fsanitize=address -g3
-DEBUGFLAGS = -g3
+DEBUGFLAGS = -fsanitize=address -g3
+#DEBUGFLAGS = -g3
 
 HEADERS_PATH =	includes/
 HEADERS_NAME =	minishell.h \

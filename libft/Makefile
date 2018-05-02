@@ -6,7 +6,7 @@
 #    By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/07 16:49:28 by jbulant           #+#    #+#              #
-#    Updated: 2018/05/01 00:23:11 by jbulant          ###   ########.fr        #
+#    Updated: 2018/05/01 22:14:19 by jbulant          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -135,8 +135,8 @@ HEADERS = $(addprefix $(HEADERS_PATH), $(HEADERS_NAME))
 CC = gcc
 INCLUDES = -Iincludes
 CFLAGS = -Wall -Wextra -Werror
-# DEBUGFLAGS = -fsanitize=address -g3
-DEBUGFLAGS = -g3
+DEBUGFLAGS = -fsanitize=address -g3
+# DEBUGFLAGS = -g3
 
 .PHONY: all clean fclean re
 

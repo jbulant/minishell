@@ -6,7 +6,7 @@
 /*   By: jbulant <jbulant@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/25 05:40:17 by jbulant           #+#    #+#             */
-/*   Updated: 2018/05/01 01:57:51 by jbulant          ###   ########.fr       */
+/*   Updated: 2018/05/02 00:50:44 by jbulant          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,18 @@ static int		ft_launch(t_minishell *msh, char *path)
 		return (0);
 	}
 	if (pid == 0)
-		execve(path, &ARG_KEYS(msh->current_arg), msh->virtual_env);
+	{
+		if (execve(path, &ARG_KEYS(msh->current_arg), msh->virtual_env) == -1)
+		{
+			ft_putstr_fd(ft_strerror(FTE_EXECF), 1);
+			ft_putendl_fd(ARG_KEYS(msh->current_arg), 1);
+			exit(1);
+		}
+	}
 	else
 	{
 		wait(&pid);
-		ft_arstrdel(msh->virtual_env);
-		msh->virtual_env = NULL;
+		ft_arstrdel(&msh->virtual_env);
 	}
 	return (1);
 }
@@ -75,9 +81,10 @@ int				ft_exec_cmd(t_minishell *msh)
 	while (msh->path[++i])
 	{
 		ft_strcpy(filepath, msh->path[i]);
-		plen = ft_strlen(filepath);
-		if (plen && filepath[plen - 1] != '/')
+		if ((plen = ft_strlen(filepath)) && filepath[plen - 1] != '/')
 			ft_strcpy(filepath + plen++, "/");
+		if (access(filepath, R_OK) == -1)
+			continue ;
 		ft_strcpy(filepath + plen, ARG_KEYS(msh->current_arg));
 		if (file_is_exec(filepath) == 1)
 			return (ft_launch(msh, filepath));
